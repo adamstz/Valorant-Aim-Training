@@ -1,0 +1,186 @@
+<!-- 
+		Name: <Adam Seitz>
+		Date: <4/25/2021>
+		Class: CSCI2447, Javascript Fundamentals
+		Project 6
+ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Valorant Aim Training (CSCI2447)</title>
+    <link rel="shortcut icon" type="image/jpg" href="img/favicon.png"/>
+    <!-- CSS styles: This is for me to worry about; not you. -->
+      
+    <link href="css/jquery-ui.min.css" rel="stylesheet">  
+      
+	<link href="css/game.css" rel="stylesheet" />
+    
+    <script src="jsfolder/jquery-3.5.1.js"></script>   
+    <script src="jsfolder/jquery-ui.min.js"></script>
+    
+    <script>
+    var score = 0;
+    var seconds = 30;
+    var t;
+    //function that runs when DOM has been loaded
+    $(document).ready(function(){
+        //outputs ready to console
+        console.log("ready");
+        //prompts for user name
+         var name = prompt("What is your name?", "");
+        //prepends name to paragraph
+        $("#intro").prepend("Are you ready to get started " + name + "? ");
+        //changes timer to red
+        $(".timer").css("color","red");
+        
+        //removes image when clicked on. increments score by 1
+        $("#gamespace").on("click",".gameimage", function(){
+            increment();
+            $(this).remove();
+        });
+        //begins game when start button is clicked
+        $("#start_button").click(function(){
+           
+            beginGame();
+            $("#start_button").off("click");
+        });
+        
+        //dialog widget 
+        $("#valorant").dialog();
+        //button styling
+        $("button").css("font-size","18px");
+        $("button").css("font-weight","bold");
+        $("button").css("padding","8px");
+        $("button").css("font-family","valorant");
+        $("button").css("background-color","red");
+    })
+    //begins the game
+    function beginGame(){
+        
+        decrementTime();
+        addImage();
+        
+    
+    }
+    //removes dynamically added images. Called by AddImage()
+    function removeImage(elem){
+        $(elem).remove();
+        
+    }
+    //removes all images. called when seconds hit 0
+    function removeAllImages(){
+        $("img").remove();
+        
+    }
+    /* adds images dynamically at a random interval and calls removeImage() after a random interval.
+    */
+    
+    function addImage(){
+        
+        var x = xvalues();
+        var y = yvalues();
+        var randomTimer = Math.random() * 2000;
+        var randomTimer2 = 1500 + (Math.random() * 2000);
+        
+        
+        var elem = document.createElement("img");
+        elem.setAttribute("style", "left: " + x + "px;top: "+ y+ "px;");
+        elem.setAttribute("class", "gameimage");;
+        elem.src = "img/Phoenix.png";
+        document.getElementById("gamespace").appendChild(elem);
+        
+        
+        if (seconds >= 1){
+        t = setTimeout("addImage()",randomTimer);
+        setTimeout(function() {
+        removeImage(elem);
+        }, randomTimer2); 
+        }
+        if(seconds <= 1){
+            clearTimeout(t);
+        }
+        
+    }
+    //increments score by 1 and updates html
+    function increment(){
+        score += 1;
+        $("#score").text( score + " pts"); 
+    }
+    //decrements Time left and updates html. resets game and alerts score when seconds hit 0.
+    function decrementTime(){
+         
+         $("#timea").text( seconds  + " seconds left"); 
+         if (seconds !=0){
+         seconds = seconds -1;
+         var t = setTimeout("decrementTime()",1000);
+         
+         
+         }
+        else{
+            
+            removeAllImages();
+           
+            setTimeout(function() { alert("You got a total of " + score + " points!"); }, 500);
+            
+            $("#start_button").click(function(){
+            seconds = 30;
+            score = 0;
+            $("#score").text( 0 + " pts"); 
+            beginGame();
+            $("#start_button").off("click");
+            
+        });
+          
+         }
+      
+         
+    }
+    //generates random x - values for images in the gamespace
+    function xvalues(){
+        
+        return Math.random() * (560);
+
+    }
+    //generates random y - values for images in the gamespace
+    function yvalues(){
+        
+        return Math.random() * (220);
+    }
+    
+    </script>    
+  </head>
+  <body>
+    
+    <div id="valorant" title="Valorant Game">
+        <p>If you are interested in playing a game of Valorant, you can visit the official website below:</p>
+        <a href="https://playvalorant.com/en-us/" target="_blank">PLAY VALORANT</a>
+  
+    </div>
+        
+	<div id="content">
+
+		<h1>Valorant Aim Training</h1>
+		
+		<p id = "intro">After clicking "start", you will have 30 seconds to 
+		1 tap Phoenix as fast as you can. The images appear randomly so be ready! I'll see you in Radiant rank!</p>
+		
+		<div id="controls">
+			<button type="button" id="start_button">Start!</button>
+		</div>
+        
+		<div class = "timer">
+            <span id="score">0 pts </span>
+            
+            <span id="timea">30 seconds left </span>
+        </div>
+		<div id="gamespace">
+
+			
+			
+		</div>
+		
+	</div>
+  </body>
+</html>

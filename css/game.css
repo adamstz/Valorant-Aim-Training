@@ -1,0 +1,75 @@
+/* CSS Document 
+Name: <Adam Seitz>
+		Date: <5/7/2021>
+		Class: CSCI2447, Javascript Fundamentals*/
+
+html, body {
+	
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 13px;
+	color: red;
+	background-image: url('../img/valbackground.png');
+    font-size: 24px;
+    background-size: cover;
+    text-align: center;
+    
+	
+	}
+@font-face{font-family: valorant; src: url('../fonts/ValorantFont.ttf');}
+h1 {
+	margin: 2px;
+    font-family: valorant;
+    text-align: center;
+    color: red;
+}
+	
+
+
+div#content {
+    width: 700px;
+    margin:0 auto;
+	padding: 20px;
+	background-color: black; }
+	
+div#controls {
+	text-align: right; }
+	
+div#controls span {
+	font-weight: bold;
+	color: #990000; }
+	
+div#controls button {
+	margin-left: 20px; }
+    
+div.timer{
+    color:black;
+    font-weight:bold;
+    display:flex;
+    margin-top:20px;
+}
+#score{
+    width: 350px;
+    text-align:left;
+}
+#timea{
+    width: 350px;
+    text-align: right;
+}
+	
+div#gamespace {
+	margin: 20px;
+	padding: 10px;
+	height: 350px;
+	background-color: gray;
+	border: 2px solid Red;
+    cursor:url('../img/crosshair.png')28 26,auto;
+    position: relative;
+}
+div#gamespace img { 
+    position: absolute;
+}
+a:hover{
+    color: red;
+}
+
